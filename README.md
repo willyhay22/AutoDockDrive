@@ -18,6 +18,15 @@ AutoDockDrive runs quietly in the menu bar. Whenever you plug in an external dri
 
 ## Installation
 
+### Option 1: Homebrew (Recommended)
+You can easily install AutoDockDrive via Homebrew:
+```bash
+brew tap willyhay22/autodockdrive
+brew trust willyhay22/autodockdrive
+brew install --cask autodockdrive
+```
+
+### Option 2: Manual Download
 1. Go to the [Releases page](../../releases/latest) and download `AutoDockDrive-1.0.dmg`.
 2. Open the DMG and drag **AutoDockDrive** into your Applications folder.
 3. Open it from Applications. 

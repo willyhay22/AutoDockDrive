@@ -65,8 +65,8 @@ cat <<EOF > "${CONTENTS_DIR}/Info.plist"
 EOF
 
 # Copy Icon
-if [ -f "icon.icns" ]; then
-    cp "icon.icns" "${RESOURCES_DIR}/AppIcon.icns"
+if [ -f "Assets/icon.icns" ]; then
+    cp "Assets/icon.icns" "${RESOURCES_DIR}/AppIcon.icns"
 fi
 
 # Code Sign the application bundle (ad-hoc signing for distribution if proper certs are missing)

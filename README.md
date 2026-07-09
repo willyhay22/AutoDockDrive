@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="icon.iconset/icon_512x512.png" alt="AutoDockDrive Logo" width="128" />
+  <img src="Assets/icon.iconset/icon_512x512.png" alt="AutoDockDrive Logo" width="128" />
   <h1>AutoDockDrive</h1>
   <p><b>A native, lightweight macOS utility that automatically manages your external drives right in your Dock.</b></p>
   

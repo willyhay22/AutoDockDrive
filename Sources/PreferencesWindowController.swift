@@ -34,6 +34,11 @@ class PreferencesWindowController: NSWindowController {
         loginCheckbox.state = SettingsManager.shared.startsAtLogin ? .on : .off
         container.addArrangedSubview(loginCheckbox)
         
+        // Auto Updates Checkbox
+        let updatesCheckbox = NSButton(checkboxWithTitle: "Automatically check for updates on launch", target: self, action: #selector(updatesCheckboxToggled(_:)))
+        updatesCheckbox.state = SettingsManager.shared.automaticallyCheckForUpdates ? .on : .off
+        container.addArrangedSubview(updatesCheckbox)
+        
         // Separator
         let separator = NSBox()
         separator.boxType = .separator
@@ -98,6 +103,10 @@ class PreferencesWindowController: NSWindowController {
     
     @objc private func loginCheckboxToggled(_ sender: NSButton) {
         SettingsManager.shared.toggleStartAtLogin()
+    }
+    
+    @objc private func updatesCheckboxToggled(_ sender: NSButton) {
+        SettingsManager.shared.automaticallyCheckForUpdates = (sender.state == .on)
     }
     
     @objc private func sortChanged(_ sender: NSPopUpButton) {

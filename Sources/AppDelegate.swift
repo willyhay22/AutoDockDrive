@@ -28,6 +28,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         if SettingsManager.shared.hasSeenWelcomeScreen {
             VolumeMonitor.shared.startMonitoring()
             Logger.shared.info("AutoDockDrive successfully launched in background.")
+            if SettingsManager.shared.automaticallyCheckForUpdates {
+                UpdateManager.shared.checkForUpdates(silent: true)
+            }
         } else {
             Logger.shared.info("First launch detected. Showing Welcome screen.")
             showWelcomeScreen()
@@ -91,6 +94,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         let prefsItem = NSMenuItem(title: "Preferences…", action: #selector(showPreferences), keyEquivalent: ",")
         prefsItem.target = self
         menu.addItem(prefsItem)
+        
+        let updatesItem = NSMenuItem(title: "Check for Updates…", action: #selector(checkUpdates), keyEquivalent: "")
+        updatesItem.target = self
+        menu.addItem(updatesItem)
         
         let aboutItem = NSMenuItem(title: "About AutoDockDrive", action: #selector(showAbout), keyEquivalent: "")
         aboutItem.target = self
@@ -165,6 +172,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         aboutWindowController?.showWindow(nil)
         NSApp.activate(ignoringOtherApps: true)
+    }
+    
+    @objc private func checkUpdates() {
+        UpdateManager.shared.checkForUpdates(silent: false)
     }
     
     @objc private func openLogFile() {

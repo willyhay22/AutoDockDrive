@@ -29,6 +29,7 @@ swiftc -O \
     "${SRC_DIR}/PreferencesWindowController.swift" \
     "${SRC_DIR}/AboutWindowController.swift" \
     "${SRC_DIR}/WelcomeWindowController.swift" \
+    "${SRC_DIR}/UpdateManager.swift" \
     "${SRC_DIR}/main.swift" \
     -o "${MAC_OS_DIR}/${APP_NAME}" \
     -target x86_64-apple-macosx12.0 \

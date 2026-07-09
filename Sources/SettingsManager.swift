@@ -11,6 +11,7 @@ class SettingsManager {
     private let dockDisplayAsKey = "dockDisplayAs"
     private let dockShowAsKey = "dockShowAs"
     private let hasSeenWelcomeScreenKey = "hasSeenWelcomeScreen"
+    private let automaticallyCheckForUpdatesKey = "automaticallyCheckForUpdates"
     
     private init() {
         // Register default defaults
@@ -22,7 +23,8 @@ class SettingsManager {
             pauseKey: false,
             dockSortByKey: 3,
             dockDisplayAsKey: 1,
-            dockShowAsKey: 3
+            dockShowAsKey: 3,
+            automaticallyCheckForUpdatesKey: true
         ])
     }
     
@@ -30,6 +32,11 @@ class SettingsManager {
     var hasSeenWelcomeScreen: Bool {
         get { userDefaults.bool(forKey: hasSeenWelcomeScreenKey) }
         set { userDefaults.set(newValue, forKey: hasSeenWelcomeScreenKey) }
+    }
+    
+    var automaticallyCheckForUpdates: Bool {
+        get { userDefaults.object(forKey: automaticallyCheckForUpdatesKey) as? Bool ?? true }
+        set { userDefaults.set(newValue, forKey: automaticallyCheckForUpdatesKey) }
     }
     
     /// Whether automatic Dock management is temporarily paused.

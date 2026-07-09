@@ -32,7 +32,14 @@ class UpdateManager {
                 let localVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
                 
                 if self.isNewerVersion(local: localVersion, remote: remoteVersion) {
-                    let notes = release.body ?? "A new version of AutoDockDrive is available!"
+                    var notes = release.body ?? "A new version of AutoDockDrive is available!"
+                    
+                    // Strip basic markdown
+                    notes = notes.replacingOccurrences(of: "**", with: "")
+                    notes = notes.replacingOccurrences(of: "## ", with: "")
+                    notes = notes.replacingOccurrences(of: "# ", with: "")
+                    notes = notes.trimmingCharacters(in: .whitespacesAndNewlines)
+                    
                     let message = "\(notes)\n\nTo update, click 'Download Update', download the new .dmg file from GitHub, and drag the app into your Applications folder."
                     self.showAlert(title: "Update Available (\(remoteVersion))", message: message, isUpdate: true, url: URL(string: release.html_url))
                 } else if !silent {

@@ -1,5 +1,6 @@
 import Foundation
 import os.log
+import AppKit
 
 /// A centralized logger that writes to both the console (via `os_log`) and a log file in `~/Library/Logs/AutoDockDrive.log`.
 class Logger {
@@ -25,7 +26,13 @@ class Logger {
         
         logFileURL = logDirectory.appendingPathComponent("AutoDockDrive.log")
         
-        if !FileManager.default.fileExists(atPath: logFileURL.path) {
+        if let attrs = try? FileManager.default.attributesOfItem(atPath: logFileURL.path),
+           let fileSize = attrs[.size] as? UInt64, fileSize > 1_000_000 { // 1MB
+            let rotatedURL = logDirectory.appendingPathComponent("AutoDockDrive_old.log")
+            try? FileManager.default.removeItem(at: rotatedURL)
+            try? FileManager.default.moveItem(at: logFileURL, to: rotatedURL)
+            FileManager.default.createFile(atPath: logFileURL.path, contents: nil, attributes: nil)
+        } else if !FileManager.default.fileExists(atPath: logFileURL.path) {
             FileManager.default.createFile(atPath: logFileURL.path, contents: nil, attributes: nil)
         }
         
@@ -39,6 +46,50 @@ class Logger {
         
         dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+    }
+    
+    func exportDiagnostics() {
+        let desktop = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
+        let diagURL = desktop.appendingPathComponent("AutoDockDrive_Diagnostics_\(Int(Date().timeIntervalSince1970)).txt")
+        
+        var diagText = "=== AutoDockDrive Diagnostics ===\n"
+        diagText += "Date: \(dateFormatter.string(from: Date()))\n"
+        
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+        diagText += "App Version: \(version)\n"
+        
+        let osVersion = ProcessInfo.processInfo.operatingSystemVersionString
+        diagText += "macOS Version: \(osVersion)\n"
+        
+        #if arch(x86_64)
+        diagText += "Architecture: Intel (x86_64)\n"
+        #elseif arch(arm64)
+        diagText += "Architecture: Apple Silicon (arm64)\n"
+        #else
+        diagText += "Architecture: Unknown\n"
+        #endif
+        
+        diagText += "\n--- Preferences ---\n"
+        if let prefs = UserDefaults.standard.persistentDomain(forName: Bundle.main.bundleIdentifier ?? "com.willyhay22.AutoDockDrive") {
+            for (key, value) in prefs {
+                diagText += "\(key): \(value)\n"
+            }
+        }
+        
+        diagText += "\n--- Recent Logs ---\n"
+        if let logData = try? Data(contentsOf: logFileURL),
+           let logStr = String(data: logData, encoding: .utf8) {
+            let lines = logStr.components(separatedBy: .newlines)
+            let tail = lines.suffix(100).joined(separator: "\n")
+            diagText += tail
+        }
+        
+        do {
+            try diagText.write(to: diagURL, atomically: true, encoding: .utf8)
+            NSWorkspace.shared.activateFileViewerSelecting([diagURL])
+        } catch {
+            self.error("Failed to export diagnostics: \(error)")
+        }
     }
     
     deinit {

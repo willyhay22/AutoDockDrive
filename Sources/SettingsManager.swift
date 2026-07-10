@@ -12,6 +12,10 @@ class SettingsManager {
     private let dockShowAsKey = "dockShowAs"
     private let hasSeenWelcomeScreenKey = "hasSeenWelcomeScreen"
     private let automaticallyCheckForUpdatesKey = "automaticallyCheckForUpdates"
+    private let automaticallyManageDockKey = "automaticallyManageDock"
+    private let excludedDrivesKey = "excludedDrives"
+    private let ignoreTimeMachineKey = "ignoreTimeMachine"
+    private let ignoreDiskImagesKey = "ignoreDiskImages"
     
     private init() {
         // Register default defaults
@@ -24,8 +28,22 @@ class SettingsManager {
             dockSortByKey: 3,
             dockDisplayAsKey: 1,
             dockShowAsKey: 3,
-            automaticallyCheckForUpdatesKey: true
+            automaticallyCheckForUpdatesKey: true,
+            automaticallyManageDockKey: true,
+            ignoreTimeMachineKey: true,
+            ignoreDiskImagesKey: true,
+            excludedDrivesKey: [String: String]()
         ])
+    }
+    
+    var ignoreTimeMachine: Bool {
+        get { userDefaults.object(forKey: ignoreTimeMachineKey) as? Bool ?? true }
+        set { userDefaults.set(newValue, forKey: ignoreTimeMachineKey) }
+    }
+    
+    var ignoreDiskImages: Bool {
+        get { userDefaults.object(forKey: ignoreDiskImagesKey) as? Bool ?? true }
+        set { userDefaults.set(newValue, forKey: ignoreDiskImagesKey) }
     }
     
     /// Whether the user has seen the first-launch welcome screen.
@@ -37,6 +55,31 @@ class SettingsManager {
     var automaticallyCheckForUpdates: Bool {
         get { userDefaults.object(forKey: automaticallyCheckForUpdatesKey) as? Bool ?? true }
         set { userDefaults.set(newValue, forKey: automaticallyCheckForUpdatesKey) }
+    }
+    
+    var automaticallyManageDock: Bool {
+        get { userDefaults.object(forKey: automaticallyManageDockKey) as? Bool ?? true }
+        set { userDefaults.set(newValue, forKey: automaticallyManageDockKey) }
+    }
+    
+    /// Dictionary mapping Volume UUID strings to Friendly Names
+    var excludedDrives: [String: String] {
+        get { userDefaults.dictionary(forKey: excludedDrivesKey) as? [String: String] ?? [:] }
+        set { userDefaults.set(newValue, forKey: excludedDrivesKey) }
+    }
+    
+    func excludeDrive(uuid: String, name: String) {
+        var current = excludedDrives
+        current[uuid] = name
+        excludedDrives = current
+        Logger.shared.info("Excluded drive: \(name) (\(uuid))")
+    }
+    
+    func unexcludeDrive(uuid: String) {
+        var current = excludedDrives
+        current.removeValue(forKey: uuid)
+        excludedDrives = current
+        Logger.shared.info("Removed exclusion for drive UUID: \(uuid)")
     }
     
     /// Whether automatic Dock management is temporarily paused.

@@ -159,13 +159,18 @@ class DockManager {
     }
     
     private func createDirectoryTile(for url: URL) -> [String: Any] {
+        let guid = UInt32(truncatingIfNeeded: url.absoluteString.hashValue)
+        let name = url.lastPathComponent
+        
         return [
+            "GUID": Int(guid),
             "tile-type": "directory-tile",
             "tile-data": [
                 "file-data": [
                     "_CFURLString": url.absoluteString,
                     "_CFURLStringType": 15
                 ],
+                "file-label": name,
                 "file-type": 2, // 2 = directory
                 "showas": SettingsManager.shared.dockShowAs,
                 "displayas": SettingsManager.shared.dockDisplayAs,

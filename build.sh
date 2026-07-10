@@ -2,8 +2,8 @@
 set -e
 
 APP_NAME="AutoDockDrive"
-BUNDLE_IDENTIFIER="com.wihay.AutoDockDrive"
-VERSION="1.0"
+BUNDLE_IDENTIFIER="com.willyhay22.AutoDockDrive"
+VERSION="1.2"
 SRC_DIR="Sources"
 BUILD_DIR="build"
 APP_DIR="${BUILD_DIR}/${APP_NAME}.app"
@@ -27,7 +27,6 @@ swiftc -O \
     "${SRC_DIR}/SettingsManager.swift" \
     "${SRC_DIR}/VolumeMonitor.swift" \
     "${SRC_DIR}/PreferencesWindowController.swift" \
-    "${SRC_DIR}/AboutWindowController.swift" \
     "${SRC_DIR}/WelcomeWindowController.swift" \
     "${SRC_DIR}/UpdateManager.swift" \
     "${SRC_DIR}/main.swift" \

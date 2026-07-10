@@ -32,16 +32,17 @@ class UpdateManager {
                 let localVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
                 
                 if self.isNewerVersion(local: localVersion, remote: remoteVersion) {
-                    var notes = release.body ?? "A new version of AutoDockDrive is available!"
+                    var notes = release.body ?? ""
                     
-                    // Strip basic markdown
+                    // Strip basic markdown and convert list items to bullets
                     notes = notes.replacingOccurrences(of: "**", with: "")
                     notes = notes.replacingOccurrences(of: "## ", with: "")
                     notes = notes.replacingOccurrences(of: "# ", with: "")
+                    notes = notes.replacingOccurrences(of: "- ", with: "• ")
                     notes = notes.trimmingCharacters(in: .whitespacesAndNewlines)
                     
-                    let message = "\(notes)\n\nTo update, click 'Download Update', download the new .dmg file from GitHub, and drag the app into your Applications folder."
-                    self.showAlert(title: "Update Available (\(remoteVersion))", message: message, isUpdate: true, url: URL(string: release.html_url))
+                    let message = "What's New\n\n\(notes)"
+                    self.showAlert(title: "AutoDockDrive \(remoteVersion) is available.", message: message, isUpdate: true, url: URL(string: release.html_url))
                 } else if !silent {
                     self.showAlert(title: "Up to Date", message: "You are running the latest version of AutoDockDrive (\(localVersion)).", isUpdate: false, url: nil)
                 }
@@ -57,7 +58,23 @@ class UpdateManager {
     }
     
     private func isNewerVersion(local: String, remote: String) -> Bool {
-        return local.compare(remote, options: .numeric) == .orderedAscending
+        let localParts = local.split(separator: ".").compactMap { Int($0) }
+        let remoteParts = remote.split(separator: ".").compactMap { Int($0) }
+        
+        let maxCount = max(localParts.count, remoteParts.count)
+        
+        for i in 0..<maxCount {
+            let localPart = i < localParts.count ? localParts[i] : 0
+            let remotePart = i < remoteParts.count ? remoteParts[i] : 0
+            
+            if localPart < remotePart {
+                return true
+            } else if localPart > remotePart {
+                return false
+            }
+        }
+        
+        return false
     }
     
     private func showAlert(title: String, message: String, isUpdate: Bool, url: URL?) {
@@ -68,8 +85,8 @@ class UpdateManager {
             alert.alertStyle = .informational
             
             if isUpdate {
-                alert.addButton(withTitle: "Download Update")
-                alert.addButton(withTitle: "Cancel")
+                alert.addButton(withTitle: "Download")
+                alert.addButton(withTitle: "Later")
             } else {
                 alert.addButton(withTitle: "OK")
             }

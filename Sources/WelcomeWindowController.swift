@@ -87,7 +87,7 @@ class WelcomeWindowController: NSWindowController {
         container.addArrangedSubview(launchAtLoginCheckbox)
         
         // Default Appearance Label
-        let appearanceLabel = NSTextField(labelWithString: "Default Dock Appearance:")
+        let appearanceLabel = NSTextField(labelWithString: "Appearance for New Drives:")
         appearanceLabel.font = NSFont.systemFont(ofSize: 13, weight: .medium)
         container.addArrangedSubview(appearanceLabel)
         

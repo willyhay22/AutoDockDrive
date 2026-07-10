@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Go to the project root directory
+cd "$(dirname "$0")/.."
+
 APP_NAME="AutoDockDrive"
 BUNDLE_IDENTIFIER="com.willyhay22.AutoDockDrive"
 VERSION="1.2"
@@ -19,17 +22,12 @@ rm -rf "${BUILD_DIR}"
 mkdir -p "${MAC_OS_DIR}"
 mkdir -p "${RESOURCES_DIR}"
 
+# Find all Swift files
+SWIFT_FILES=$(find "${SRC_DIR}" -name "*.swift")
+
 # Compile Swift files
 swiftc -O \
-    "${SRC_DIR}/AppDelegate.swift" \
-    "${SRC_DIR}/DockManager.swift" \
-    "${SRC_DIR}/Logger.swift" \
-    "${SRC_DIR}/SettingsManager.swift" \
-    "${SRC_DIR}/VolumeMonitor.swift" \
-    "${SRC_DIR}/PreferencesWindowController.swift" \
-    "${SRC_DIR}/WelcomeWindowController.swift" \
-    "${SRC_DIR}/UpdateManager.swift" \
-    "${SRC_DIR}/main.swift" \
+    $SWIFT_FILES \
     -o "${MAC_OS_DIR}/${APP_NAME}" \
     -target x86_64-apple-macosx12.0 \
     -target arm64-apple-macosx12.0

@@ -4,8 +4,8 @@ class PreferencesWindowController: NSWindowController {
     
     init() {
         // Create a window without a hardcoded size. It will resize based on the tab content.
-        let window = NSWindow(contentRect: .zero,
-                              styleMask: [.titled, .closable, .miniaturizable],
+        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 550, height: 400),
+                              styleMask: [.titled, .closable, .miniaturizable, .resizable],
                               backing: .buffered,
                               defer: false)
         window.title = "Preferences"
@@ -15,7 +15,7 @@ class PreferencesWindowController: NSWindowController {
         
         let tabViewController = NSTabViewController()
         tabViewController.tabStyle = .toolbar
-        tabViewController.transitionOptions = [.crossfade, .allowUserInteraction]
+
         
         let generalVC = GeneralPreferencesViewController()
         let generalItem = NSTabViewItem(viewController: generalVC)
@@ -83,7 +83,7 @@ class GeneralPreferencesViewController: NSViewController {
         updatesCheckbox.state = SettingsManager.shared.automaticallyCheckForUpdates ? .on : .off
         container.addArrangedSubview(updatesCheckbox)
         
-        container.widthAnchor.constraint(equalToConstant: 400).isActive = true
+        container.widthAnchor.constraint(equalToConstant: 550).isActive = true
         self.view = container
     }
     
@@ -128,7 +128,7 @@ class DockPreferencesViewController: NSViewController {
         container.addArrangedSubview(formStack)
         formStack.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 20).isActive = true
         
-        container.widthAnchor.constraint(equalToConstant: 400).isActive = true
+        container.widthAnchor.constraint(equalToConstant: 550).isActive = true
         self.view = container
     }
     
@@ -184,7 +184,7 @@ class FiltersPreferencesViewController: NSViewController {
         dmgCheckbox.state = SettingsManager.shared.ignoreDiskImages ? .on : .off
         container.addArrangedSubview(dmgCheckbox)
         
-        container.widthAnchor.constraint(equalToConstant: 400).isActive = true
+        container.widthAnchor.constraint(equalToConstant: 550).isActive = true
         self.view = container
     }
     
@@ -214,17 +214,22 @@ class ExcludedDrivesViewController: NSViewController, NSTableViewDataSource, NST
         
         let scrollView = NSScrollView()
         scrollView.hasVerticalScroller = true
-        scrollView.borderType = .bezelBorder
+        scrollView.borderType = .noBorder
+        scrollView.drawsBackground = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         tableView = NSTableView()
+        if #available(macOS 11.0, *) {
+            tableView.style = .inset
+        }
+        tableView.headerView = nil
+        tableView.backgroundColor = .clear
+        
         let column1 = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("NameColumn"))
-        column1.title = "Drive Name"
-        column1.width = 180
+        column1.width = 400
         tableView.addTableColumn(column1)
         
         let column2 = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("StatusColumn"))
-        column2.title = "Status"
         column2.width = 100
         tableView.addTableColumn(column2)
         
@@ -241,8 +246,8 @@ class ExcludedDrivesViewController: NSViewController, NSTableViewDataSource, NST
         container.addSubview(removeButton)
         
         NSLayoutConstraint.activate([
-            container.widthAnchor.constraint(equalToConstant: 400),
-            container.heightAnchor.constraint(equalToConstant: 280),
+            container.widthAnchor.constraint(equalToConstant: 550),
+            container.heightAnchor.constraint(greaterThanOrEqualToConstant: 280),
             
             infoLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 20),
             infoLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 20),
@@ -329,7 +334,7 @@ class AdvancedPreferencesViewController: NSViewController {
         let exportButton = NSButton(title: "Export Diagnostics...", target: self, action: #selector(exportDiagnostics))
         container.addArrangedSubview(exportButton)
         
-        container.widthAnchor.constraint(equalToConstant: 400).isActive = true
+        container.widthAnchor.constraint(equalToConstant: 550).isActive = true
         self.view = container
     }
     
@@ -395,7 +400,7 @@ class AboutPreferencesViewController: NSViewController {
         copyrightLabel.isEditable = false
         container.addArrangedSubview(copyrightLabel)
         
-        container.widthAnchor.constraint(equalToConstant: 400).isActive = true
+        container.widthAnchor.constraint(equalToConstant: 550).isActive = true
         self.view = container
     }
     

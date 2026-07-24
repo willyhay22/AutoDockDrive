@@ -13,36 +13,24 @@
 
 ---
 
-<!-- TODO: Add a 3-5 second GIF showing a drive being plugged in and popping into the Dock here. Save as Assets/screenshots/demo.gif -->
-> **Note:** Screenshot/Demo GIF goes here!
-
-## ⚡️ Why AutoDockDrive?
+## Why AutoDockDrive?
 
 AutoDockDrive was created because macOS doesn't provide a simple way to automatically place removable drives in the Dock while they're connected. 
 
-The goal is to make external storage feel like a natural extension of your Mac without permanently cluttering your Dock. AutoDockDrive runs quietly in the menu bar. Whenever you plug in an external drive, SD card, or USB stick, it **automatically adds a shortcut to the right side of your Dock**. When you eject the drive, the shortcut instantly disappears.
+The goal is to make external storage feel like a natural extension of your Mac without permanently cluttering your Dock. AutoDockDrive runs quietly in the menu bar. Whenever you plug in an external drive, SD card, or USB stick, it automatically adds a shortcut to the right side of your Dock. When you eject the drive, the shortcut instantly disappears.
 
-## ✨ Features
+## Features
 
-* **🔌 Plug & Play:** Automatically pins a Dock shortcut when a drive connects.
-* **🧹 Auto Cleanup:** Removes the shortcut seamlessly when the drive is ejected.
-* **🛡️ Smart Filtering:** Ignores `.dmg` files, app installers, and Time Machine backups so your Dock stays pristine.
-* **🛑 Excluded Drives:** Permanently exclude specific drives (like your always-plugged-in backup drives) from being managed.
-* **🎛️ Menu Bar Manager:** Quickly Eject, Open, or Copy the path of connected drives directly from the menu bar—no Finder needed!
-* **🎨 Customizable:** Choose exactly how drives look in the Dock (Folder vs Stack, List vs Grid, etc.).
-
----
-
-## 📸 Screenshots
-
-<!-- TODO: Add screenshots of the Menu Bar dropdown and the Preferences window. Save as Assets/screenshots/menubar.png and Assets/screenshots/preferences.png -->
-| Menu Bar Manager | Preferences |
-| :---: | :---: |
-| *(Add `menubar.png` here)* | *(Add `preferences.png` here)* |
+* **Plug & Play:** Automatically pins a Dock shortcut when a drive connects.
+* **Auto Cleanup:** Removes the shortcut seamlessly when the drive is ejected.
+* **Smart Filtering:** Ignores `.dmg` files, app installers, and Time Machine backups so your Dock stays pristine.
+* **Excluded Drives:** Permanently exclude specific drives (like your always-plugged-in backup drives) from being managed.
+* **Menu Bar Manager:** Quickly Eject, Open, or Copy the path of connected drives directly from the menu bar without opening Finder.
+* **Customizable:** Choose exactly how drives look in the Dock (Folder vs Stack, List vs Grid, etc.).
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Option 1: Homebrew (Recommended)
 You can easily install AutoDockDrive via Homebrew:
@@ -62,7 +50,7 @@ brew install --cask autodockdrive
 
 ---
 
-## 🛠️ Technical Details & Limitations
+## Technical Details & Limitations
 
 ### Why does the Dock briefly restart?
 macOS heavily caches the Dock state using a background process (`cfprefsd`). Writing directly to the Dock's preference files won't work instantly. AutoDockDrive uses a native `defaults export / import` workflow to safely inject the shortcut into the cache, then briefly restarts the Dock (`killall Dock`) to force the UI to refresh. This process takes a fraction of a second.
@@ -73,7 +61,7 @@ macOS heavily caches the Dock state using a background process (`cfprefsd`). Wri
 
 ---
 
-## 🏗️ Building from Source
+## Building from Source
 
 If you want to build the app yourself without Xcode:
 
@@ -83,13 +71,13 @@ cd AutoDockDrive
 ./Scripts/build.sh
 ```
 
-## 💻 Requirements
+## Requirements
 * macOS 12.0 or newer
 * Apple Silicon (arm64) or Intel (x86_64)
 
-## 🗑️ Uninstallation
+## Uninstallation
 1. Quit the app from the menu bar.
 2. Delete it from your Applications folder.
 
-## 📄 License
+## License
 Released under the MIT License. See [LICENSE](LICENSE) for details.

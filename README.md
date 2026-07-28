@@ -33,7 +33,7 @@ The goal is to make external storage feel like a natural extension of your Mac w
 ## Installation
 
 ### Option 1: Homebrew (Recommended)
-You can easily install AutoDockDrive via Homebrew:
+You can easily install AutoDockDrive via Homebrew *(Note: You must have [Homebrew](https://brew.sh) installed on your Mac first)*:
 ```bash
 brew tap willyhay22/autodockdrive
 brew trust willyhay22/autodockdrive

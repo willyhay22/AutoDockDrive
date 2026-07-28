@@ -12,6 +12,8 @@ class VolumeMonitor {
     private let workspace = NSWorkspace.shared
     private var daSession: DASession?
     
+    private var syncWorkItem: DispatchWorkItem?
+    
     private init() {
         daSession = DASessionCreate(kCFAllocatorDefault)
         if daSession == nil {
@@ -57,15 +59,30 @@ class VolumeMonitor {
     @objc private func handleVolumeMounted(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
               let volumeURL = userInfo[NSWorkspace.volumeURLUserInfoKey] as? URL else { return }
+        
+        if !volumeURL.path.hasPrefix("/Volumes/") { return }
+        
         Logger.shared.info("Volume mounted: \(volumeURL.path)")
-        refreshAndSynchronize()
+        scheduleRefresh()
     }
     
     @objc private func handleVolumeUnmounted(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
               let volumeURL = userInfo[NSWorkspace.volumeURLUserInfoKey] as? URL else { return }
+        
+        if !volumeURL.path.hasPrefix("/Volumes/") { return }
+        
         Logger.shared.info("Volume unmounted: \(volumeURL.path)")
-        refreshAndSynchronize()
+        scheduleRefresh()
+    }
+    
+    func scheduleRefresh() {
+        syncWorkItem?.cancel()
+        let workItem = DispatchWorkItem { [weak self] in
+            self?.refreshAndSynchronize()
+        }
+        syncWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: workItem)
     }
     
     /// Refreshes the list of currently mounted external drives and triggers a Dock sync if enabled.
@@ -92,32 +109,34 @@ class VolumeMonitor {
         let ignoreDMG = SettingsManager.shared.ignoreDiskImages
         
         for volumeURL in mountedVolumes {
-            do {
-                let resourceValues = try volumeURL.resourceValues(forKeys: [.volumeIsInternalKey, .volumeIsRemovableKey, .volumeIsEjectableKey, .volumeUUIDStringKey])
-                
-                let isInternal = resourceValues.volumeIsInternal ?? true
-                let isRemovable = resourceValues.volumeIsRemovable ?? false
-                let isEjectable = resourceValues.volumeIsEjectable ?? false
-                let uuid = resourceValues.volumeUUIDString ?? ""
-                
-                if !isInternal || isRemovable || isEjectable {
-                    if volumeURL.path.hasPrefix("/Volumes/") {
-                        if excludedUUIDs.contains(uuid) {
-                            Logger.shared.debug("Ignoring Excluded volume: \(volumeURL.path) (UUID: \(uuid))")
-                        }
-                        else if ignoreDMG && isDiskImage(url: volumeURL) {
-                            Logger.shared.debug("Ignoring Disk Image volume: \(volumeURL.path)")
-                        } 
-                        else if ignoreTM && isTimeMachineVolume(url: volumeURL) {
-                            Logger.shared.debug("Ignoring Time Machine volume: \(volumeURL.path)")
-                        } 
-                        else {
-                            connectedDrives.append(volumeURL)
+            autoreleasepool {
+                do {
+                    let resourceValues = try volumeURL.resourceValues(forKeys: [.volumeIsInternalKey, .volumeIsRemovableKey, .volumeIsEjectableKey, .volumeUUIDStringKey])
+                    
+                    let isInternal = resourceValues.volumeIsInternal ?? true
+                    let isRemovable = resourceValues.volumeIsRemovable ?? false
+                    let isEjectable = resourceValues.volumeIsEjectable ?? false
+                    let uuid = resourceValues.volumeUUIDString ?? ""
+                    
+                    if !isInternal || isRemovable || isEjectable {
+                        if volumeURL.path.hasPrefix("/Volumes/") {
+                            if excludedUUIDs.contains(uuid) {
+                                Logger.shared.debug("Ignoring Excluded volume: \(volumeURL.path) (UUID: \(uuid))")
+                            }
+                            else if ignoreDMG && isDiskImage(url: volumeURL) {
+                                Logger.shared.debug("Ignoring Disk Image volume: \(volumeURL.path)")
+                            } 
+                            else if ignoreTM && isTimeMachineVolume(url: volumeURL) {
+                                Logger.shared.debug("Ignoring Time Machine volume: \(volumeURL.path)")
+                            } 
+                            else {
+                                connectedDrives.append(volumeURL)
+                            }
                         }
                     }
+                } catch {
+                    Logger.shared.error("Failed to get resource values for volume \(volumeURL.path): \(error)")
                 }
-            } catch {
-                Logger.shared.error("Failed to get resource values for volume \(volumeURL.path): \(error)")
             }
         }
         
@@ -172,11 +191,11 @@ class VolumeMonitor {
 private func diskAppearedCallback(disk: DADisk, context: UnsafeMutableRawPointer?) {
     guard let context = context else { return }
     let monitor = Unmanaged<VolumeMonitor>.fromOpaque(context).takeUnretainedValue()
-    DispatchQueue.main.async { monitor.refreshAndSynchronize() }
+    DispatchQueue.main.async { monitor.scheduleRefresh() }
 }
 
 private func diskDisappearedCallback(disk: DADisk, context: UnsafeMutableRawPointer?) {
     guard let context = context else { return }
     let monitor = Unmanaged<VolumeMonitor>.fromOpaque(context).takeUnretainedValue()
-    DispatchQueue.main.async { monitor.refreshAndSynchronize() }
+    DispatchQueue.main.async { monitor.scheduleRefresh() }
 }

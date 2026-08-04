@@ -192,19 +192,37 @@ h1 {
     max-width: 900px;
 }
 
-.demo-container {
-    padding: 1rem;
-    transform: perspective(1000px) rotateX(2deg);
-    transition: transform 0.5s ease;
+.mac-window {
+    background: #1e1e1e;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0 auto;
 }
-
-.demo-container:hover {
-    transform: perspective(1000px) rotateX(0deg);
+.mac-titlebar {
+    height: 32px;
+    background: #2d2d2d;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
+.mac-buttons {
+    display: flex;
+    gap: 8px;
+}
+.mac-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.mac-btn.close { background: #ff5f56; }
+.mac-btn.minimize { background: #ffbd2e; }
+.mac-btn.maximize { background: #27c93f; }
 
 .demo-gif {
     width: 100%;
-    border-radius: 16px;
     display: block;
 }
 

@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 
 APP_NAME="AutoDockDrive"
 BUNDLE_IDENTIFIER="com.willyhay22.AutoDockDrive"
-VERSION="1.2.1"
+VERSION="1.2.2"
 SRC_DIR="Sources"
 BUILD_DIR="build"
 APP_DIR="${BUILD_DIR}/${APP_NAME}.app"
@@ -28,9 +28,15 @@ SWIFT_FILES=$(find "${SRC_DIR}" -name "*.swift")
 # Compile Swift files
 swiftc -O \
     $SWIFT_FILES \
-    -o "${MAC_OS_DIR}/${APP_NAME}" \
-    -target x86_64-apple-macosx12.0 \
+    -o "${BUILD_DIR}/${APP_NAME}_x86_64" \
+    -target x86_64-apple-macosx12.0
+
+swiftc -O \
+    $SWIFT_FILES \
+    -o "${BUILD_DIR}/${APP_NAME}_arm64" \
     -target arm64-apple-macosx12.0
+
+lipo -create -output "${MAC_OS_DIR}/${APP_NAME}" "${BUILD_DIR}/${APP_NAME}_x86_64" "${BUILD_DIR}/${APP_NAME}_arm64"
 
 # Create Info.plist
 cat <<EOF > "${CONTENTS_DIR}/Info.plist"

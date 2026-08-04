@@ -23,14 +23,33 @@
                 </a>
                 <a href="https://github.com/willyhay22/AutoDockDrive" class="btn btn-secondary">View on GitHub</a>
             </div>
-            <div class="homebrew-command">
-                <code>brew install --cask autodockdrive</code>
+            <div class="homebrew-container">
+                <div class="homebrew-command" onclick="copyBrewCommand()" id="brew-box" title="Click to copy">
+                    <code>brew install --cask autodockdrive</code>
+                    <span class="copy-icon">📋</span>
+                </div>
+                <p class="homebrew-disclaimer">Don't have Homebrew? <a href="https://brew.sh" target="_blank">Install it here</a>, or download the DMG directly using the button above.</p>
             </div>
+            <div id="toast" class="toast">Copied to clipboard!</div>
         </header>
 
         <section class="demo-section">
-            <div class="demo-card">
-                <img src="assets/demo.gif" alt="AutoDockDrive in action" class="demo-gif">
+            <div class="imac-wrapper">
+                <div class="imac-frame">
+                    <div class="imac-screen">
+                        <img src="assets/demo.gif" alt="AutoDockDrive in action" class="demo-gif">
+                    </div>
+                    <div class="imac-chin"></div>
+                </div>
+                <div class="imac-stand"></div>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="story-card">
+                <h2>Why I built AutoDockDrive</h2>
+                <p>I created this because I was frustrated with macOS's default handling of external drives. You either have to clutter up your beautiful desktop wallpaper with drive icons, or you have to open a new Finder window just to navigate to your SD card or external SSD.</p>
+                <p>I wanted my external storage to feel like a seamless part of the OS. AutoDockDrive lives silently in the background and intelligently pins your drives to the Dock only while they are physically plugged in. When you eject them, it cleans up after itself.</p>
             </div>
         </section>
 
@@ -59,11 +78,56 @@
                 <p>Automatically ignores .dmg files, app installers, and Time Machine backups so your Dock only shows what matters.</p>
             </div>
         </section>
+
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <h4>Does it support both Apple Silicon (M1/M2/M3) and Intel Macs?</h4>
+                <p>Yes! AutoDockDrive is a Universal Binary. It runs natively and blazing fast on both Apple Silicon and older Intel-based Macs.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Will running this in the background drain my battery?</h4>
+                <p>Not at all. AutoDockDrive relies on native macOS DiskArbitration APIs. Instead of constantly checking for drives (which uses CPU), the OS simply taps AutoDockDrive on the shoulder exactly when a drive is connected. It uses essentially zero CPU while idle.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Do I have to use Homebrew to install it?</h4>
+                <p>No, Homebrew is just for convenience! You can click "Download for macOS" at the top of this page to get the `.dmg` file and drag the app into your Applications folder normally.</p>
+            </div>
+        </section>
+
+        <section class="social-proof">
+            <p>Loved by the macOS community. Featured on Reddit & Hacker News.</p>
+        </section>
     </main>
 
     <footer>
-        <p>Open Source and free forever. Released under the MIT License.</p>
-        <p>Built for macOS 12.0+ (Apple Silicon & Intel)</p>
+        <div class="sponsors-section">
+            <p>AutoDockDrive is 100% free and open source. If it saves you time, consider buying me a coffee!</p>
+            <div class="sponsor-buttons">
+                <a href="https://github.com/sponsors/willyhay22" target="_blank" class="btn btn-sponsor">❤️ Sponsor on GitHub</a>
+                <a href="https://buymeacoffee.com/willyhay22" target="_blank" class="btn btn-coffee">☕️ Buy me a Coffee</a>
+            </div>
+        </div>
+        <div class="footer-links">
+            <p>Released under the MIT License.</p>
+            <p>Built for macOS 12.0+</p>
+        </div>
     </footer>
+
+    <script>
+        function copyBrewCommand() {
+            const command = "brew install --cask autodockdrive";
+            navigator.clipboard.writeText(command).then(() => {
+                const toast = document.getElementById("toast");
+                toast.classList.add("show");
+                setTimeout(() => {
+                    toast.classList.remove("show");
+                }, 3000);
+            });
+        }
+    </script>
 </body>
 </html>

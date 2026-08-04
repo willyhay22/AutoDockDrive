@@ -8,6 +8,9 @@
     <img src="https://img.shields.io/badge/macOS-12.0+-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS 12.0+">
     <img src="https://img.shields.io/badge/Swift-5.5+-F05138?style=for-the-badge&logo=swift&logoColor=white" alt="Swift">
     <a href="LICENSE"><img src="https://img.shields.io/github/license/willyhay22/AutoDockDrive?style=for-the-badge&color=34C759" alt="License"></a>
+    <br><br>
+    <a href="https://github.com/sponsors/willyhay22"><img src="https://img.shields.io/badge/Sponsor-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Sponsor on GitHub"></a>
+    <a href="https://buymeacoffee.com/willyhay22"><img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee"></a>
   </p>
 </div>
 

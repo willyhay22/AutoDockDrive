@@ -218,3 +218,233 @@ footer {
     h1 { font-size: 2.5rem; }
     .cta-buttons { flex-direction: column; }
 }
+
+/* iMac Frame */
+.imac-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto 4rem;
+}
+
+.imac-frame {
+    width: 100%;
+    max-width: 800px;
+    background: #000;
+    border-radius: 16px 16px 0 0;
+    border: 8px solid #1a1b1e;
+    border-bottom-width: 0;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.imac-screen {
+    background: #000;
+    border: 2px solid #000;
+}
+
+.demo-gif {
+    width: 100%;
+    display: block;
+}
+
+.imac-chin {
+    height: 60px;
+    background: linear-gradient(180deg, #2c2f33 0%, #1a1b1e 100%);
+    border-radius: 0 0 12px 12px;
+    border-top: 1px solid #111;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-top: none;
+}
+
+.imac-stand {
+    width: 140px;
+    height: 70px;
+    background: linear-gradient(180deg, #2c2f33 0%, #111 100%);
+    clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
+    position: relative;
+    z-index: -1;
+    margin-top: -2px;
+}
+
+/* Homebrew Container & Copy */
+.homebrew-container {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homebrew-command {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0 1rem;
+    transition: border-color 0.2s;
+}
+
+.homebrew-command:hover {
+    border-color: var(--text-secondary);
+}
+
+.homebrew-command code {
+    background: transparent;
+    border: none;
+    padding: 0.75rem 0.5rem;
+}
+
+.copy-icon {
+    font-size: 1.1rem;
+    opacity: 0.7;
+    margin-left: 0.5rem;
+}
+
+.homebrew-command:hover .copy-icon {
+    opacity: 1;
+}
+
+.homebrew-disclaimer {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+
+.homebrew-disclaimer a {
+    color: var(--accent-hover);
+    text-decoration: none;
+}
+
+.homebrew-disclaimer a:hover {
+    text-decoration: underline;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background-color: var(--accent);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 1000;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* Maker's Story */
+.story-section {
+    max-width: 700px;
+    margin: 4rem auto;
+}
+
+.story-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 3rem;
+    text-align: left;
+}
+
+.story-card h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text-heading);
+}
+
+.story-card p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.story-card p:last-child {
+    margin-bottom: 0;
+}
+
+/* FAQ */
+.faq-section {
+    max-width: 800px;
+    margin: 6rem auto 4rem;
+}
+
+.faq-section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.faq-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-item h4 {
+    font-size: 1.2rem;
+    color: var(--text-heading);
+    margin-bottom: 0.75rem;
+}
+
+.faq-item p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Social Proof */
+.social-proof {
+    text-align: center;
+    padding: 2rem;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Sponsors */
+.sponsors-section {
+    margin-bottom: 3rem;
+}
+
+.sponsor-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.btn-sponsor {
+    background-color: #ea4aaa;
+    color: white;
+    border-color: #ea4aaa;
+}
+
+.btn-sponsor:hover {
+    background-color: #d13a96;
+}
+
+.btn-coffee {
+    background-color: #FFDD00;
+    color: #000;
+    border-color: #FFDD00;
+}
+
+.btn-coffee:hover {
+    background-color: #e6c700;
+}
+

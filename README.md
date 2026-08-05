@@ -14,11 +14,6 @@
   </p>
 </div>
 
-<br>
-<div align="center">
-  <img src="docs/assets/demo.gif" alt="AutoDockDrive Demo" width="700" style="border-radius: 8px;" />
-</div>
-
 ---
 
 ## Why AutoDockDrive?
@@ -27,11 +22,15 @@ AutoDockDrive was created because macOS doesn't provide a simple way to automati
 
 The goal is to make external storage feel like a natural extension of your Mac without permanently cluttering your Dock. AutoDockDrive runs quietly in the menu bar. Whenever you plug in an external drive, SD card, or USB stick, it automatically adds a shortcut to the right side of your Dock. When you eject the drive, the shortcut instantly disappears.
 
-## Features
+## Demo
 
 <div align="center">
-  <img src="docs/assets/drive-dock.png" alt="AutoDockDrive Menu" width="400" />
+  <img src="docs/assets/demo.gif" alt="AutoDockDrive Demo" width="600" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
 </div>
+
+## Features
+
+<img align="right" src="docs/assets/drive-dock.png" alt="AutoDockDrive Menu" width="280" style="margin-left: 20px; border-radius: 8px;" />
 
 * **Plug & Play:** Automatically pins a Dock shortcut when a drive connects.
 * **Auto Cleanup:** Removes the shortcut seamlessly when the drive is ejected.

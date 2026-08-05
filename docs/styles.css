@@ -1,13 +1,13 @@
 :root {
-    /* Apple Light Mode Palette */
-    --bg-color: #f5f5f7;
-    --card-bg: #ffffff;
-    --text-primary: #1d1d1f;
-    --text-heading: #1d1d1f;
+    /* Apple Dark Mode Palette */
+    --bg-color: #000000;
+    --card-bg: #1c1c1e;
+    --text-primary: #f5f5f7;
+    --text-heading: #ffffff;
     --text-secondary: #86868b;
-    --accent: #0071e3;
-    --accent-hover: #0077ed;
-    --border-color: #d2d2d7;
+    --accent: #0a84ff;
+    --accent-hover: #007aff;
+    --border-color: #38383a;
 }
 
 * {
@@ -41,7 +41,7 @@ main {
     width: 128px;
     height: 128px;
     margin-bottom: 2rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     border-radius: 28px;
 }
 
@@ -84,7 +84,7 @@ h3 {
 .btn {
     padding: 0.85rem 1.75rem;
     border-radius: 980px;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 1.05rem;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -113,15 +113,14 @@ h3 {
 .btn-secondary {
     background-color: transparent;
     color: var(--text-primary);
-    border: 1px solid var(--text-primary);
+    border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover {
-    background-color: var(--text-primary);
-    color: #ffffff;
+    background-color: var(--card-bg);
 }
 
-/* Homebrew command */
+/* Homebrew Container & Copy */
 .homebrew-container {
     margin-top: 2rem;
     display: flex;
@@ -133,14 +132,15 @@ h3 {
     display: inline-flex;
     align-items: center;
     cursor: pointer;
-    background: #e8e8ed;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 0.25rem 1rem;
     transition: all 0.2s ease;
 }
 
 .homebrew-command:hover {
-    background: #d2d2d7;
+    border-color: #555557;
 }
 
 .homebrew-command code {
@@ -183,13 +183,14 @@ h3 {
     bottom: 40px;
     left: 50%;
     transform: translateX(-50%) translateY(100px);
-    background-color: rgba(0,0,0,0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.2);
     color: #fff;
     padding: 12px 24px;
     border-radius: 980px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     font-weight: 500;
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -205,29 +206,31 @@ h3 {
 .glass-container {
     background: var(--card-bg);
     border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    border: 1px solid var(--border-color);
 }
 
 /* iMac Frame / Demo Section */
 .demo-section {
     margin: 5rem auto;
-    max-width: 900px;
+    text-align: center;
 }
 
 .imac-wrapper {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
+    max-width: 100%;
 }
 
 .imac-frame {
-    width: 100%;
-    max-width: 800px;
+    display: inline-block;
     background: #e5e5ea;
     border-radius: 24px 24px 0 0;
     padding: 16px 16px 0 16px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(255,255,255,0.8);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255,255,255,0.2);
     position: relative;
+    max-width: 900px;
 }
 
 .imac-screen {
@@ -240,8 +243,9 @@ h3 {
 }
 
 .demo-gif {
-    width: 100%;
     display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 .imac-chin {
@@ -252,7 +256,7 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 -1px 2px rgba(0,0,0,0.1);
+    box-shadow: inset 0 -1px 2px rgba(0,0,0,0.5);
 }
 
 /* Apple logo in the chin */
@@ -274,7 +278,7 @@ h3 {
     position: relative;
     z-index: -1;
     margin-top: -10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
 
 /* Maker's Story */
@@ -285,10 +289,11 @@ h3 {
 
 .story-card {
     background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 24px;
     padding: 4rem;
     text-align: center;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
 
 .story-card h2 {
@@ -312,9 +317,15 @@ h3 {
 /* Features */
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr;
     gap: 2rem;
     margin-top: 6rem;
+}
+
+@media (min-width: 900px) {
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .feature-card {
@@ -324,11 +335,15 @@ h3 {
     align-items: center;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.6);
 }
 
 .feature-img-wrapper {
@@ -344,7 +359,6 @@ h3 {
     max-height: 100%;
     object-fit: contain;
     border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
 .feature-card h3 {
@@ -400,11 +414,12 @@ h3 {
     text-align: center;
     padding: 3rem 2rem;
     background: var(--card-bg);
+    border: 1px solid var(--border-color);
     color: var(--text-secondary);
     font-weight: 500;
     font-size: 1.1rem;
     border-radius: 24px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
     margin-bottom: 4rem;
 }
 

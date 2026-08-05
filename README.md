@@ -2,6 +2,9 @@
   <img src="Assets/icon.iconset/icon_512x512.png" alt="AutoDockDrive Logo" width="128" />
   <h1>AutoDockDrive</h1>
   <p><b>A lightweight macOS app that automatically manages your external drives in the Dock.</b></p>
+
+  <a href="https://www.producthunt.com/products/autodockdrive?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-autodockdrive" target="_blank"><img alt="AutoDockDrive - Automatically manage your external drives in the macOS Dock | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1215277&theme=dark&t=1785902789591"></a>
+  <br><br>
   
   <p>
     <a href="https://github.com/willyhay22/AutoDockDrive/releases/latest"><img src="https://img.shields.io/github/v/release/willyhay22/AutoDockDrive?style=for-the-badge&color=007AFF" alt="Latest Release"></a>

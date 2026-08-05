@@ -225,7 +225,7 @@ h3 {
 
 .imac-frame {
     display: inline-block;
-    background: #e5e5ea;
+    background: #000;
     border-radius: 24px 24px 0 0;
     padding: 16px 16px 0 16px;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255,255,255,0.2);
@@ -409,18 +409,27 @@ h3 {
     font-size: 1.1rem;
 }
 
-/* Social Proof */
-.social-proof {
-    text-align: center;
-    padding: 3rem 2rem;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    font-weight: 500;
-    font-size: 1.1rem;
-    border-radius: 24px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-    margin-bottom: 4rem;
+/* Sticky Coffee Button */
+.sticky-coffee-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #FFDD00;
+    color: #000;
+    padding: 12px 24px;
+    border-radius: 980px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    z-index: 2000;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+    border: 1px solid rgba(255, 221, 0, 0.5);
+}
+
+.sticky-coffee-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(255, 221, 0, 0.2);
 }
 
 /* Sponsors */

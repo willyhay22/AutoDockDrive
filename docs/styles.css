@@ -1,20 +1,20 @@
 :root {
-    /* GitHub Dark Mode Palette */
-    --bg-color: #0d1117;
-    --card-bg: #161b22;
-    --text-primary: #c9d1d9;
-    --text-heading: #ffffff;
-    --text-secondary: #8b949e;
-    --accent: #238636;
-    --accent-hover: #2ea043;
-    --border-color: #30363d;
+    /* Apple Light Mode Palette */
+    --bg-color: #f5f5f7;
+    --card-bg: #ffffff;
+    --text-primary: #1d1d1f;
+    --text-heading: #1d1d1f;
+    --text-secondary: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --border-color: #d2d2d7;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -22,6 +22,7 @@ body {
     color: var(--text-primary);
     overflow-x: hidden;
     line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
 
 main {
@@ -33,21 +34,23 @@ main {
 /* Hero Section */
 .hero {
     text-align: center;
-    padding: 4rem 0 2rem;
+    padding: 6rem 0 3rem;
 }
 
 .logo {
     width: 128px;
     height: 128px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 28px;
 }
 
 h1 {
-    font-size: 3.5rem;
+    font-size: 4.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
     color: var(--text-heading);
-    letter-spacing: -1px;
+    letter-spacing: -0.02em;
 }
 
 h3 {
@@ -55,17 +58,19 @@ h3 {
 }
 
 .tagline {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 500;
     color: var(--text-primary);
     margin-bottom: 1rem;
+    letter-spacing: -0.01em;
 }
 
 .subtitle {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     color: var(--text-secondary);
-    max-width: 600px;
+    max-width: 650px;
     margin: 0 auto 3rem;
+    font-weight: 400;
 }
 
 /* Buttons */
@@ -73,19 +78,19 @@ h3 {
     display: flex;
     gap: 1rem;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    font-weight: 600;
+    padding: 0.85rem 1.75rem;
+    border-radius: 980px;
+    font-weight: 400;
+    font-size: 1.05rem;
     text-decoration: none;
-    transition: background-color 0.2s ease;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    border: 1px solid rgba(240, 246, 252, 0.1);
 }
 
 .btn-primary {
@@ -95,6 +100,7 @@ h3 {
 
 .btn-primary:hover {
     background-color: var(--accent-hover);
+    transform: scale(1.02);
 }
 
 .version {
@@ -105,171 +111,19 @@ h3 {
 }
 
 .btn-secondary {
-    background-color: #21262d;
+    background-color: transparent;
     color: var(--text-primary);
+    border: 1px solid var(--text-primary);
 }
 
 .btn-secondary:hover {
-    background-color: #30363d;
+    background-color: var(--text-primary);
+    color: #ffffff;
 }
 
 /* Homebrew command */
-.homebrew-command {
-    margin-top: 1rem;
-}
-.homebrew-command code {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 0.75rem 1.25rem;
-    border-radius: 6px;
-    color: var(--text-primary);
-    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-    font-size: 0.9rem;
-    display: inline-block;
-    cursor: copy;
-}
-.homebrew-command code:hover {
-    border-color: #8b949e;
-}
-
-/* Reusable Card */
-.glass-container {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-}
-
-/* Demo Section */
-.demo-section {
-    margin: 4rem auto;
-    max-width: 900px;
-}
-
-.demo-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
-    margin: 0 auto;
-}
-
-.demo-gif {
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    display: block;
-}
-
-/* Features */
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 4rem;
-}
-
-.feature-card {
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.feature-img-wrapper {
-    height: 160px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
-    background: #010409;
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-}
-
-.feature-img {
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain;
-    border-radius: 6px;
-}
-
-.feature-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-}
-
-.feature-card p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 4rem 2rem;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    border-top: 1px solid var(--border-color);
-    margin-top: 4rem;
-}
-
-@media (max-width: 768px) {
-    h1 { font-size: 2.5rem; }
-    .cta-buttons { flex-direction: column; }
-}
-
-/* iMac Frame */
-.imac-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 2rem auto 4rem;
-}
-
-.imac-frame {
-    width: 100%;
-    max-width: 800px;
-    background: #000;
-    border-radius: 16px 16px 0 0;
-    border: 8px solid #1a1b1e;
-    border-bottom-width: 0;
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255,255,255,0.05);
-}
-
-.imac-screen {
-    background: #000;
-    border: 2px solid #000;
-}
-
-.demo-gif {
-    width: 100%;
-    display: block;
-}
-
-.imac-chin {
-    height: 60px;
-    background: linear-gradient(180deg, #2c2f33 0%, #1a1b1e 100%);
-    border-radius: 0 0 12px 12px;
-    border-top: 1px solid #111;
-    position: relative;
-    border: 1px solid rgba(255,255,255,0.05);
-    border-top: none;
-}
-
-.imac-stand {
-    width: 140px;
-    height: 70px;
-    background: linear-gradient(180deg, #2c2f33 0%, #111 100%);
-    clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
-    position: relative;
-    z-index: -1;
-    margin-top: -2px;
-}
-
-/* Homebrew Container & Copy */
 .homebrew-container {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -279,26 +133,28 @@ footer {
     display: inline-flex;
     align-items: center;
     cursor: pointer;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    padding: 0 1rem;
-    transition: border-color 0.2s;
+    background: #e8e8ed;
+    border-radius: 8px;
+    padding: 0.25rem 1rem;
+    transition: all 0.2s ease;
 }
 
 .homebrew-command:hover {
-    border-color: var(--text-secondary);
+    background: #d2d2d7;
 }
 
 .homebrew-command code {
     background: transparent;
     border: none;
     padding: 0.75rem 0.5rem;
+    color: var(--text-primary);
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+    font-size: 0.95rem;
 }
 
 .copy-icon {
     font-size: 1.1rem;
-    opacity: 0.7;
+    opacity: 0.5;
     margin-left: 0.5rem;
 }
 
@@ -307,13 +163,13 @@ footer {
 }
 
 .homebrew-disclaimer {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 }
 
 .homebrew-disclaimer a {
-    color: var(--accent-hover);
+    color: var(--accent);
     text-decoration: none;
 }
 
@@ -324,17 +180,19 @@ footer {
 /* Toast */
 .toast {
     position: fixed;
-    bottom: 30px;
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%) translateY(100px);
-    background-color: var(--accent);
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: #fff;
     padding: 12px 24px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border-radius: 980px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     font-weight: 500;
     opacity: 0;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 1000;
 }
 
@@ -343,29 +201,107 @@ footer {
     opacity: 1;
 }
 
+/* Reusable Card */
+.glass-container {
+    background: var(--card-bg);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+}
+
+/* iMac Frame / Demo Section */
+.demo-section {
+    margin: 5rem auto;
+    max-width: 900px;
+}
+
+.imac-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imac-frame {
+    width: 100%;
+    max-width: 800px;
+    background: #e5e5ea;
+    border-radius: 24px 24px 0 0;
+    padding: 16px 16px 0 16px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(255,255,255,0.8);
+    position: relative;
+}
+
+.imac-screen {
+    background: #000;
+    border: 4px solid #111;
+    border-bottom: 24px solid #111;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.demo-gif {
+    width: 100%;
+    display: block;
+}
+
+.imac-chin {
+    height: 65px;
+    background: linear-gradient(180deg, #f5f5f7 0%, #e5e5ea 100%);
+    border-radius: 0 0 20px 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 -1px 2px rgba(0,0,0,0.1);
+}
+
+/* Apple logo in the chin */
+.imac-chin::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path fill="%23a1a1a6" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.3 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.3zM34.3 103C60.6 70.3 80.5 49 113.8 45.4 116.7 17.4 135.2 0 159 0c-26 5-49 20.7-65.3 49-16.7 29.5-12.7 57.5-9.3 54z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.6;
+}
+
+.imac-stand {
+    width: 140px;
+    height: 80px;
+    background: linear-gradient(180deg, #d2d2d7 0%, #a1a1a6 100%);
+    clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+    position: relative;
+    z-index: -1;
+    margin-top: -10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
 /* Maker's Story */
 .story-section {
-    max-width: 700px;
-    margin: 4rem auto;
+    max-width: 800px;
+    margin: 6rem auto;
 }
 
 .story-card {
     background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 3rem;
-    text-align: left;
+    border-radius: 24px;
+    padding: 4rem;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
 }
 
 .story-card h2 {
     margin-bottom: 1.5rem;
     color: var(--text-heading);
+    font-size: 2rem;
+    font-weight: 600;
 }
 
 .story-card p {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     color: var(--text-primary);
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     line-height: 1.6;
 }
 
@@ -373,20 +309,72 @@ footer {
     margin-bottom: 0;
 }
 
+/* Features */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 6rem;
+}
+
+.feature-card {
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+}
+
+.feature-img-wrapper {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.feature-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
 /* FAQ */
 .faq-section {
     max-width: 800px;
-    margin: 6rem auto 4rem;
+    margin: 8rem auto 4rem;
 }
 
 .faq-section h2 {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
+    font-size: 2.5rem;
+    font-weight: 700;
 }
 
 .faq-item {
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -395,25 +383,29 @@ footer {
 }
 
 .faq-item h4 {
-    font-size: 1.2rem;
+    font-size: 1.35rem;
     color: var(--text-heading);
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
 }
 
 .faq-item p {
     color: var(--text-secondary);
     line-height: 1.6;
+    font-size: 1.1rem;
 }
 
 /* Social Proof */
 .social-proof {
     text-align: center;
-    padding: 2rem;
+    padding: 3rem 2rem;
     background: var(--card-bg);
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
     color: var(--text-secondary);
     font-weight: 500;
+    font-size: 1.1rem;
+    border-radius: 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    margin-bottom: 4rem;
 }
 
 /* Sponsors */
@@ -431,20 +423,38 @@ footer {
 .btn-sponsor {
     background-color: #ea4aaa;
     color: white;
-    border-color: #ea4aaa;
+    border: none;
 }
 
 .btn-sponsor:hover {
     background-color: #d13a96;
+    color: white;
 }
 
 .btn-coffee {
     background-color: #FFDD00;
     color: #000;
-    border-color: #FFDD00;
+    border: none;
 }
 
 .btn-coffee:hover {
     background-color: #e6c700;
+    color: #000;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    border-top: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 3rem; }
+    .cta-buttons { flex-direction: column; }
+    .story-card { padding: 2rem; }
+    .imac-frame { border-radius: 12px 12px 0 0; padding: 8px 8px 0 8px; }
 }
 

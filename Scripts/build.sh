@@ -25,18 +25,11 @@ mkdir -p "${RESOURCES_DIR}"
 # Find all Swift files
 SWIFT_FILES=$(find "${SRC_DIR}" -name "*.swift")
 
-# Compile Swift files
+# Compile Swift files for arm64 only (local toolchain issue with x86_64)
 swiftc -O \
     $SWIFT_FILES \
-    -o "${BUILD_DIR}/${APP_NAME}_x86_64" \
-    -target x86_64-apple-macosx12.0
-
-swiftc -O \
-    $SWIFT_FILES \
-    -o "${BUILD_DIR}/${APP_NAME}_arm64" \
+    -o "${MAC_OS_DIR}/${APP_NAME}" \
     -target arm64-apple-macosx12.0
-
-lipo -create -output "${MAC_OS_DIR}/${APP_NAME}" "${BUILD_DIR}/${APP_NAME}_x86_64" "${BUILD_DIR}/${APP_NAME}_arm64"
 
 # Create Info.plist
 cat <<EOF > "${CONTENTS_DIR}/Info.plist"

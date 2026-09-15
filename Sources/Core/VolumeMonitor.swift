@@ -28,6 +28,7 @@ class VolumeMonitor {
         // Register for NSWorkspace notifications
         workspace.notificationCenter.addObserver(self, selector: #selector(handleVolumeMounted(_:)), name: NSWorkspace.didMountNotification, object: nil)
         workspace.notificationCenter.addObserver(self, selector: #selector(handleVolumeUnmounted(_:)), name: NSWorkspace.didUnmountNotification, object: nil)
+        workspace.notificationCenter.addObserver(self, selector: #selector(handleWake(_:)), name: NSWorkspace.didWakeNotification, object: nil)
         
         // Register for DiskArbitration callbacks to catch physical yanks
         if let session = daSession {
@@ -54,6 +55,11 @@ class VolumeMonitor {
             DAUnregisterCallback(session, cbDisappeared, context)
             DASessionUnscheduleFromRunLoop(session, CFRunLoopGetMain(), CFRunLoopMode.defaultMode.rawValue)
         }
+    }
+    
+    @objc private func handleWake(_ notification: Notification) {
+        Logger.shared.info("System woke from sleep. Triggering full reconciliation.")
+        scheduleRefresh()
     }
     
     @objc private func handleVolumeMounted(_ notification: Notification) {
@@ -101,24 +107,26 @@ class VolumeMonitor {
     
     /// Returns the currently connected and supported external drives without synchronizing the Dock.
     func getConnectedDrives() -> [URL] {
-        let mountedVolumes = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: [.volumeIsInternalKey, .volumeIsRemovableKey, .volumeIsEjectableKey, .volumeUUIDStringKey], options: [.skipHiddenVolumes]) ?? []
+        let mountedVolumes = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: [.volumeIsInternalKey, .volumeIsRemovableKey, .volumeIsEjectableKey, .volumeIsNetworkKey, .volumeUUIDStringKey], options: [.skipHiddenVolumes]) ?? []
         
         var connectedDrives: [URL] = []
         let excludedUUIDs = SettingsManager.shared.excludedDrives.keys
         let ignoreTM = SettingsManager.shared.ignoreTimeMachine
         let ignoreDMG = SettingsManager.shared.ignoreDiskImages
+        let includeNetwork = SettingsManager.shared.includeNetworkDrives
         
         for volumeURL in mountedVolumes {
             autoreleasepool {
                 do {
-                    let resourceValues = try volumeURL.resourceValues(forKeys: [.volumeIsInternalKey, .volumeIsRemovableKey, .volumeIsEjectableKey, .volumeUUIDStringKey])
+                    let resourceValues = try volumeURL.resourceValues(forKeys: [.volumeIsInternalKey, .volumeIsRemovableKey, .volumeIsEjectableKey, .volumeIsNetworkKey, .volumeUUIDStringKey])
                     
                     let isInternal = resourceValues.volumeIsInternal ?? true
                     let isRemovable = resourceValues.volumeIsRemovable ?? false
                     let isEjectable = resourceValues.volumeIsEjectable ?? false
+                    let isNetwork = resourceValues.volumeIsNetwork ?? false
                     let uuid = resourceValues.volumeUUIDString ?? ""
                     
-                    if !isInternal || isRemovable || isEjectable {
+                    if (!isInternal || isRemovable || isEjectable) || (includeNetwork && isNetwork) {
                         if volumeURL.path.hasPrefix("/Volumes/") {
                             if excludedUUIDs.contains(uuid) {
                                 Logger.shared.debug("Ignoring Excluded volume: \(volumeURL.path) (UUID: \(uuid))")

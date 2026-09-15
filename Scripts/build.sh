@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 
 APP_NAME="AutoDockDrive"
 BUNDLE_IDENTIFIER="com.willyhay22.AutoDockDrive"
-VERSION="1.2.2"
+VERSION="1.3.0"
 SRC_DIR="Sources"
 BUILD_DIR="build"
 APP_DIR="${BUILD_DIR}/${APP_NAME}.app"

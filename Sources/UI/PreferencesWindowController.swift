@@ -169,7 +169,7 @@ class FiltersPreferencesViewController: NSViewController {
         container.spacing = 16
         container.edgeInsets = NSEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
         
-        let infoLabel = NSTextField(labelWithString: "Select the types of drives that should never be added to the Dock.")
+        let infoLabel = NSTextField(labelWithString: "Configure which types of drives AutoDockDrive should manage.")
         infoLabel.textColor = .secondaryLabelColor
         infoLabel.isBordered = false
         infoLabel.isEditable = false
@@ -184,6 +184,10 @@ class FiltersPreferencesViewController: NSViewController {
         dmgCheckbox.state = SettingsManager.shared.ignoreDiskImages ? .on : .off
         container.addArrangedSubview(dmgCheckbox)
         
+        let networkCheckbox = NSButton(checkboxWithTitle: "Include Network Drives (SMB/AFP)", target: self, action: #selector(networkCheckboxToggled(_:)))
+        networkCheckbox.state = SettingsManager.shared.includeNetworkDrives ? .on : .off
+        container.addArrangedSubview(networkCheckbox)
+        
         container.widthAnchor.constraint(equalToConstant: 550).isActive = true
         self.view = container
     }
@@ -193,6 +197,9 @@ class FiltersPreferencesViewController: NSViewController {
     }
     @objc private func dmgCheckboxToggled(_ sender: NSButton) {
         SettingsManager.shared.ignoreDiskImages = (sender.state == .on)
+    }
+    @objc private func networkCheckboxToggled(_ sender: NSButton) {
+        SettingsManager.shared.includeNetworkDrives = (sender.state == .on)
     }
 }
 

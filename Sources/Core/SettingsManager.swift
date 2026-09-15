@@ -32,6 +32,7 @@ class SettingsManager {
             automaticallyManageDockKey: true,
             ignoreTimeMachineKey: true,
             ignoreDiskImagesKey: true,
+            "includeNetworkDrives": false,
             excludedDrivesKey: [String: String]()
         ])
     }
@@ -44,6 +45,11 @@ class SettingsManager {
     var ignoreDiskImages: Bool {
         get { userDefaults.object(forKey: ignoreDiskImagesKey) as? Bool ?? true }
         set { userDefaults.set(newValue, forKey: ignoreDiskImagesKey) }
+    }
+    
+    var includeNetworkDrives: Bool {
+        get { userDefaults.object(forKey: "includeNetworkDrives") as? Bool ?? false }
+        set { userDefaults.set(newValue, forKey: "includeNetworkDrives") }
     }
     
     /// Whether the user has seen the first-launch welcome screen.

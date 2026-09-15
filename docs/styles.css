@@ -477,3 +477,9 @@ footer {
     .imac-frame { border-radius: 12px 12px 0 0; padding: 8px 8px 0 8px; }
 }
 
+/* Apple Design / Fluid UI Enhancements */
+.btn:active, .homebrew-command:active, .sticky-coffee-btn:active {
+    transform: scale(0.97) !important;
+    transition: transform 100ms ease-out !important;
+}
+

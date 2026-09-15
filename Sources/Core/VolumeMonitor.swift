@@ -107,7 +107,7 @@ class VolumeMonitor {
     
     /// Returns the currently connected and supported external drives without synchronizing the Dock.
     func getConnectedDrives() -> [URL] {
-        let mountedVolumes = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: [.volumeIsInternalKey, .volumeIsRemovableKey, .volumeIsEjectableKey, .volumeIsNetworkKey, .volumeUUIDStringKey], options: [.skipHiddenVolumes]) ?? []
+        let mountedVolumes = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: [.volumeIsInternalKey, .volumeIsRemovableKey, .volumeIsEjectableKey, .volumeIsLocalKey, .volumeUUIDStringKey], options: [.skipHiddenVolumes]) ?? []
         
         var connectedDrives: [URL] = []
         let excludedUUIDs = SettingsManager.shared.excludedDrives.keys
@@ -118,12 +118,13 @@ class VolumeMonitor {
         for volumeURL in mountedVolumes {
             autoreleasepool {
                 do {
-                    let resourceValues = try volumeURL.resourceValues(forKeys: [.volumeIsInternalKey, .volumeIsRemovableKey, .volumeIsEjectableKey, .volumeIsNetworkKey, .volumeUUIDStringKey])
+                    let resourceValues = try volumeURL.resourceValues(forKeys: [.volumeIsInternalKey, .volumeIsRemovableKey, .volumeIsEjectableKey, .volumeIsLocalKey, .volumeUUIDStringKey])
                     
                     let isInternal = resourceValues.volumeIsInternal ?? true
                     let isRemovable = resourceValues.volumeIsRemovable ?? false
                     let isEjectable = resourceValues.volumeIsEjectable ?? false
-                    let isNetwork = resourceValues.volumeIsNetwork ?? false
+                    let isLocal = resourceValues.volumeIsLocal ?? true
+                    let isNetwork = !isLocal
                     let uuid = resourceValues.volumeUUIDString ?? ""
                     
                     if (!isInternal || isRemovable || isEjectable) || (includeNetwork && isNetwork) {
